@@ -11,9 +11,13 @@ const createAdmin = async (req, res) => {
       return SendResponse(res, 400, false, 'Full name, email, and password are required');
     }
 
-    const hashedPassword =  createHashPwd(password);
+    const existingAdmin = await Account.findOne({ email });
+    if (existingAdmin) {
+      return SendResponse(res, 409, false, 'Admin with this email already exists');
+    }
 
-    // Simulate admin creation logic
+    const hashedPassword = createHashPwd(password);
+
     const newAdmin = {
       fullName,
       email,
@@ -24,10 +28,11 @@ const createAdmin = async (req, res) => {
     await Account.create(newAdmin);
 
     return SendResponse(res, 201, true, 'Admin created successfully', {
-        fullName: newAdmin.fullName,
-        email: newAdmin.email,
-        role: newAdmin.role
+      fullName: newAdmin.fullName,
+      email: newAdmin.email,
+      role: newAdmin.role
     });
+    
   } catch (error) {
     logger.error('Error creating admin:', error);
     return SendResponse(res, 500, false, 'Internal Server Error');
