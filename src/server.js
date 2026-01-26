@@ -3,7 +3,7 @@ import cors from 'cors';
 import { PORT } from './configs/environment.js';
 import connectDB from "./configs/db.js"
 import { logger } from './utils/logger.js';
-import  { SendResponse }  from './utils/sendResponse.js';
+import  { SendResponse }  from './utils/SendResponse.js';
 import adminRouter from './admin/admin.route.js';
 
 const app = express();
