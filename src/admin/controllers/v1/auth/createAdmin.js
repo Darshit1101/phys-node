@@ -2,6 +2,7 @@ import logger from '../../../../utils/logger.js';
 import { SendResponse } from '../../../../utils/SendResponse.js';
 import { createHashPwd } from '../../../../utils/password.js';
 import Account from '../../../../models/account.js';
+import { Role } from '../../../../constants/Role.js';
 
 const createAdmin = async (req, res) => {
   try {
@@ -22,7 +23,7 @@ const createAdmin = async (req, res) => {
       fullName,
       email,
       password: hashedPassword,
-      role: 'admin'
+      role: Role.ADMIN
     };
 
     await Account.create(newAdmin);
@@ -32,7 +33,7 @@ const createAdmin = async (req, res) => {
       email: newAdmin.email,
       role: newAdmin.role
     });
-    
+
   } catch (error) {
     logger.error('Error creating admin:', error);
     return SendResponse(res, 500, false, 'Internal Server Error');
