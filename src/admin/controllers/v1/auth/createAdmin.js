@@ -1,6 +1,7 @@
 import logger from '../../../../utils/logger.js';
 import { SendResponse } from '../../../../utils/SendResponse.js';
 import { createHashPwd } from '../../../../utils/password.js';
+import Account from '../../../../models/account.js';
 
 const createAdmin = async (req, res) => {
   try {
@@ -19,6 +20,8 @@ const createAdmin = async (req, res) => {
       password: hashedPassword,
       role: 'admin'
     };
+
+    await Account.create(newAdmin);
 
     return SendResponse(res, 201, true, 'Admin created successfully', {
         fullName: newAdmin.fullName,
