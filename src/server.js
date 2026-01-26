@@ -20,7 +20,6 @@ app.use((req, res) => {
   );
 });
 
-
 app.listen(PORT, () => {
   logger.log(`http://localhost:${PORT}`);
 });
