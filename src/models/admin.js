@@ -14,12 +14,12 @@ const accountSchema = new mongoose.Schema({
   role: {
     type: String,
     enum: [Role.ADMIN, Role.USER],
-    default: Role.USER
+    default: Role.ADMIN
   }
 }, {
   timestamps: true
 });
 
-const Account = mongoose.model('User', accountSchema, 'users');
+const Account = mongoose.model('Admin', accountSchema, 'admin');
 
 export default Account;

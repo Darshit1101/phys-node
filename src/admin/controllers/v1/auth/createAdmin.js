@@ -1,7 +1,7 @@
 import logger from '../../../../utils/logger.js';
 import { SendResponse } from '../../../../utils/SendResponse.js';
 import { createHashPwd } from '../../../../utils/password.js';
-import Account from '../../../../models/account.js';
+import Admin from '../../../../models/admin.js';
 import { Role } from '../../../../constants/Role.js';
 
 const createAdmin = async (req, res) => {
@@ -12,7 +12,7 @@ const createAdmin = async (req, res) => {
       return SendResponse(res, 400, false, 'Full name, email, and password are required');
     }
 
-    const existingAdmin = await Account.findOne({ email });
+    const existingAdmin = await Admin.findOne({ email });
     if (existingAdmin) {
       return SendResponse(res, 409, false, 'Admin with this email already exists');
     }
@@ -23,15 +23,13 @@ const createAdmin = async (req, res) => {
       fullName,
       email,
       password: hashedPassword,
-      role: Role.ADMIN
     };
 
-    await Account.create(newAdmin);
+    await Admin.create(newAdmin);
 
     return SendResponse(res, 201, true, 'Admin created successfully', {
       fullName: newAdmin.fullName,
       email: newAdmin.email,
-      role: newAdmin.role
     });
 
   } catch (error) {
