@@ -1,7 +1,6 @@
 import logger from '../../../../utils/logger.js';
 import { SendResponse } from '../../../../utils/SendResponse.js';
 import Account from '../../../../models/account.js';
-import { Role } from '../../../../constants/Role.js';
 import { comparePwd } from '../../../../utils/password.js';
 import { generateToken } from '../../../../utils/token.js';
 import { APP_JWT_SECRET } from '../../../../configs/environment.js';
@@ -16,7 +15,7 @@ const loginUser = async (req, res) => {
     }
 
     // Find user by email
-    const user = await Account.findOne({ email, role: Role.ADMIN });
+    const user = await Account.findOne({ email });
     if (!user) {
       return SendResponse(res, 401, false, 'Invalid credentials');
     }

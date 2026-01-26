@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import createUserController from '../../controllers/v1/auth/createUser.js';
-import loginAdminController from '../../controllers/v1/auth/loginAdmin.js';
-import logoutAdminController from '../../controllers/v1/auth/logoutAdmin.js';
+import loginAdminController from '../../controllers/v1/auth/loginUser.js';
+import logoutAdminController from '../../controllers/v1/auth/logoutUser.js';
 
 const router = Router();
 router.post('/create-user', createUserController);
