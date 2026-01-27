@@ -1,7 +1,7 @@
 import jwt from "jsonwebtoken";
-import { APP_JWT_SECRET } from "../configs/environment.js";
+import { APP_JWT_SECRET } from "../../configs/environment.js";
 
-const authMiddleware = (req, res, next) => {
+const adminMiddleware = (req, res, next) => {
   try {
     const token = req.cookies?.authToken;
 
@@ -22,4 +22,4 @@ const authMiddleware = (req, res, next) => {
   }
 };
 
-export default authMiddleware;
+export default adminMiddleware;
