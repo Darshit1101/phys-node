@@ -9,9 +9,12 @@ const getAllUsers = async (req, res) => {
       .select('-password')
       .sort({ createdAt: -1 });
 
+    // Count total users using Mongoose
+    const total = await Account.countDocuments({});
+
     return SendResponse(res, 200, true, 'Users retrieved successfully', {
       users,
-      total: users.length
+      total
     });
 
   } catch (error) {
