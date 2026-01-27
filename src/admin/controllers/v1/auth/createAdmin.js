@@ -2,7 +2,6 @@ import logger from '../../../../utils/logger.js';
 import { SendResponse } from '../../../../utils/SendResponse.js';
 import { createHashPwd } from '../../../../utils/password.js';
 import Admin from '../../../../models/admin.js';
-import { Role } from '../../../../constants/Role.js';
 
 const createAdmin = async (req, res) => {
   try {

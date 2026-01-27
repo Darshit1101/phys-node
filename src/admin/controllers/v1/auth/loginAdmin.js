@@ -1,7 +1,6 @@
 import logger from '../../../../utils/logger.js';
 import { SendResponse } from '../../../../utils/SendResponse.js';
 import Admin from '../../../../models/admin.js';
-import { Role } from '../../../../constants/Role.js';
 import { comparePwd } from '../../../../utils/password.js';
 import { generateToken } from '../../../../utils/token.js';
 import { APP_JWT_SECRET } from '../../../../configs/environment.js';
@@ -16,7 +15,7 @@ const loginAdmin = async (req, res) => {
     }
 
     // Find admin by email
-    const admin = await Admin.findOne({ email, role: Role.ADMIN });
+    const admin = await Admin.findOne({ email});
     if (!admin) {
       return SendResponse(res, 401, false, 'Invalid credentials');
     }
@@ -31,7 +30,6 @@ const loginAdmin = async (req, res) => {
     const token = generateToken(
       {
         id: admin._id,
-        role: admin.role
       },
       APP_JWT_SECRET,
       '3d'
@@ -46,7 +44,6 @@ const loginAdmin = async (req, res) => {
         _id: admin._id,
         fullName: admin.fullName,
         email: admin.email,
-        role: admin.role
     });
 
   } catch (error) {

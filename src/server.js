@@ -6,12 +6,14 @@ import { logger } from './utils/logger.js';
 import  { SendResponse }  from './utils/SendResponse.js';
 import adminRouter from './admin/admin.route.js';
 import appRouter from './app/app.route.js';
+import {cookieParser} from './middleware/cookieParser.js'
 
 const app = express();
 await connectDB();
 
 app.use(cors());
 app.use(express.json());
+app.use(cookieParser);
 
 app.use(adminRouter);
 app.use(appRouter);

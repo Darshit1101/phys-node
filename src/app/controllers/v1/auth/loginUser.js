@@ -30,7 +30,6 @@ const loginUser = async (req, res) => {
     const token = generateToken(
       {
         id: user._id,
-        role: user.role
       },
       APP_JWT_SECRET,
       '3d'
@@ -45,7 +44,6 @@ const loginUser = async (req, res) => {
         _id: user._id,
         fullName: user.fullName,
         email: user.email,
-        role: user.role
     });
 
   } catch (error) {

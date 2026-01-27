@@ -1,5 +1,4 @@
 import mongoose from 'mongoose';
-import { Role } from '../constants/Role.js';
 
 const accountSchema = new mongoose.Schema({
   fullName: {
@@ -10,11 +9,6 @@ const accountSchema = new mongoose.Schema({
   },
   password: {
     type: String,
-  },
-  role: {
-    type: String,
-    enum: [Role.ADMIN, Role.USER],
-    default: Role.ADMIN
   }
 }, {
   timestamps: true
