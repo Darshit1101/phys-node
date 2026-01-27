@@ -6,7 +6,7 @@ import { Cookie } from '../../../constants/Cookies.js';
 const router = Router();
 router.post(
   '/getAllUsers',
-  authMiddleware([Cookie.ADMIN_TOKEN]),
+  authMiddleware([Cookie.ADMIN_TOKEN, Cookie.AUTH_TOKEN]),
   getAllUsers
 );
 
