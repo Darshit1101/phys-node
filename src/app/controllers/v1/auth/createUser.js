@@ -29,7 +29,6 @@ const createUser = async (req, res) => {
     return SendResponse(res, 201, true, 'User created successfully', {
       fullName: newUser.fullName,
       email: newUser.email,
-      role: newUser.role
     });
 
   } catch (error) {
