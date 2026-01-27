@@ -1,9 +1,10 @@
 import logger from '../../../../utils/logger.js';
 import { SendResponse } from '../../../../utils/SendResponse.js';
+import { Cookie } from '../../../../constants/Cookies.js';
 
 const logout = async (req, res) => {
   try {
-    res.clearCookie('authToken', {
+    res.clearCookie(Cookie.AUTH_TOKEN, {
       httpOnly: true,
       secure: true,
       sameSite: 'strict' //CSRF protection High

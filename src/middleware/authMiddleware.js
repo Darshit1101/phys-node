@@ -1,25 +1,25 @@
 import jwt from "jsonwebtoken";
 import { APP_JWT_SECRET } from "../configs/environment.js";
 
-const authMiddleware = (req, res, next) => {
-  try {
-    const token = req.cookies?.authToken;
+const authMiddleware = (cookieNames = []) => {
+  return (req, res, next) => {
+    let token = null;
+
+    for (const name of cookieNames) {
+      if (req.cookies?.[name]) {
+        token = req.cookies[name];
+        break;
+      }
+    }
 
     if (!token) {
       return res.status(401).json({ message: "Unauthorized" });
     }
 
     const decoded = jwt.verify(token, APP_JWT_SECRET);
-
-    req.user = {
-      id: decoded.id,
-      role: decoded.role,
-    };
-
+    req.user = decoded;
     next();
-  } catch (err) {
-    return res.status(401).json({ message: "Invalid or expired token" });
-  }
+  };
 };
 
 export default authMiddleware;

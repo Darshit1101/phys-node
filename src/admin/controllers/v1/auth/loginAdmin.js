@@ -5,7 +5,7 @@ import { comparePwd } from '../../../../utils/password.js';
 import { generateToken } from '../../../../utils/token.js';
 import { APP_JWT_SECRET } from '../../../../configs/environment.js';
 import { setCookie } from '../../../../utils/setCookie.js';
-import { Role } from '../../../../constants/Role.js';
+import { Cookie} from '../../../../constants/Cookies.js'
 
 const loginAdmin = async (req, res) => {
   try {
@@ -31,14 +31,13 @@ const loginAdmin = async (req, res) => {
     const token = generateToken(
       {
         id: admin._id,
-        role: Role.ADMIN,
       },
       APP_JWT_SECRET,
       '3d'
     );
 
     // Set HTTP-only cookie
-    setCookie(res, 'authToken', token, {
+    setCookie(res, Cookie.ADMIN_TOKEN, token, {
       maxAge: 3 * 24 * 60 * 60 * 1000
     });
 
