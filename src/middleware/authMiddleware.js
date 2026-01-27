@@ -1,7 +1,7 @@
 import jwt from "jsonwebtoken";
-import { APP_JWT_SECRET } from "../../configs/environment.js";
+import { APP_JWT_SECRET } from "../configs/environment.js";
 
-const adminMiddleware = (req, res, next) => {
+const authMiddleware = (req, res, next) => {
   try {
     const token = req.cookies?.authToken;
 
@@ -10,10 +10,10 @@ const adminMiddleware = (req, res, next) => {
     }
 
     const decoded = jwt.verify(token, APP_JWT_SECRET);
-    console.log('decoded token===>', decoded);
 
     req.user = {
       id: decoded.id,
+      role: decoded.role,
     };
 
     next();
@@ -22,4 +22,4 @@ const adminMiddleware = (req, res, next) => {
   }
 };
 
-export default adminMiddleware;
+export default authMiddleware;
