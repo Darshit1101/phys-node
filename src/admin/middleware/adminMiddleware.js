@@ -11,7 +11,6 @@ const adminMiddleware = (req, res, next) => {
     }
 
     const decoded = jwt.verify(token, APP_JWT_SECRET);
-    console.log('decoded token===>', decoded);
 
     req.user = {
       id: decoded.id,
