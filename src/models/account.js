@@ -1,19 +1,27 @@
-import mongoose from 'mongoose';
+import mongoose from "mongoose";
 
-const accountSchema = new mongoose.Schema({
-  fullName: {
-    type: String,
+const accountSchema = new mongoose.Schema(
+  {
+    fullName: {
+      type: String,
+    },
+    email: {
+      type: String,
+    },
+    password: {
+      type: String,
+    },
+    customId: {
+      type: String,
+      unique: true,
+      index: true,
+    },
   },
-  email: {
-    type: String,
+  {
+    timestamps: true,
   },
-  password: {
-    type: String,
-  }
-}, {
-  timestamps: true
-});
+);
 
-const Account = mongoose.model('User', accountSchema, 'users');
+const Account = mongoose.model("User", accountSchema, "users");
 
 export default Account;

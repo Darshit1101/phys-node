@@ -1,25 +1,24 @@
-import logger from '../../../../utils/logger.js';
-import { SendResponse } from '../../../../utils/SendResponse.js';
-import Account from '../../../../models/account.js';
+import logger from "../../../../utils/logger.js";
+import { SendResponse } from "../../../../utils/SendResponse.js";
+import Account from "../../../../models/account.js";
 
 const getAllUsers = async (req, res) => {
   try {
     // Get all users (excluding password field for security)
     const users = await Account.find({})
-      .select('-password')
+      .select("-password")
       .sort({ createdAt: -1 });
 
     // Count total users using Mongoose
     const total = await Account.countDocuments({});
 
-    return SendResponse(res, 200, true, 'Users retrieved successfully', {
+    return SendResponse(res, 200, true, "Users retrieved successfully", {
       users,
-      total
+      total,
     });
-
   } catch (error) {
-    logger.error('Error retrieving users:', error);
-    return SendResponse(res, 500, false, 'Internal Server Error');
+    logger.error("Error retrieving users:", error);
+    return SendResponse(res, 500, false, "Internal Server Error");
   }
 };
 
