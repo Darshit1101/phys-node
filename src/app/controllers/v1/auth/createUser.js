@@ -1,5 +1,5 @@
 import logger from "../../../../utils/logger.js";
-import { SendResponse } from "../../../../utils/SendResponse.js";
+import { sendResponse } from "../../../../utils/sendResponse.js";
 import { createHashPwd } from "../../../../utils/password.js";
 import Account from "../../../../models/account.js";
 import generateCustomId from "../../../../utils/customID/generateCustomId.js";
@@ -10,7 +10,7 @@ const createUser = async (req, res) => {
     const { fullName, email, password } = req.body;
 
     if (!fullName || !email || !password) {
-      return SendResponse(
+      return sendResponse(
         res,
         400,
         false,
@@ -20,7 +20,7 @@ const createUser = async (req, res) => {
 
     const existingUser = await Account.findOne({ email });
     if (existingUser) {
-      return SendResponse(
+      return sendResponse(
         res,
         409,
         false,
@@ -39,13 +39,13 @@ const createUser = async (req, res) => {
 
     await Account.create(newUser);
 
-    return SendResponse(res, 201, true, "User created successfully", {
+    return sendResponse(res, 201, true, "User created successfully", {
       fullName: newUser.fullName,
       email: newUser.email,
     });
   } catch (error) {
     logger.error("Error creating user:", error);
-    return SendResponse(res, 500, false, "Internal Server Error");
+    return sendResponse(res, 500, false, "Internal Server Error");
   }
 };
 

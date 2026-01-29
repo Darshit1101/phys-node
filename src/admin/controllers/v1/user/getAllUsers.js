@@ -1,5 +1,5 @@
 import logger from "../../../../utils/logger.js";
-import { SendResponse } from "../../../../utils/SendResponse.js";
+import { sendResponse } from "../../../../utils/sendResponse.js";
 import Account from "../../../../models/account.js";
 
 const getAllUsers = async (req, res) => {
@@ -12,13 +12,14 @@ const getAllUsers = async (req, res) => {
     // Count total users using Mongoose
     const total = await Account.countDocuments({});
 
-    return SendResponse(res, 200, true, "Users retrieved successfully", {
+
+    return sendResponse(res, 200, true, "Users retrieved successfully", {
       users,
       total,
     });
   } catch (error) {
     logger.error("Error retrieving users:", error);
-    return SendResponse(res, 500, false, "Internal Server Error");
+    return sendResponse(res, 500, false, "Internal Server Error");
   }
 };
 

@@ -1,19 +1,29 @@
-import logger from '../../../../utils/logger.js';
-import { SendResponse } from '../../../../utils/SendResponse.js';
-import { createHashPwd } from '../../../../utils/password.js';
-import Admin from '../../../../models/admin.js';
+import logger from "../../../../utils/logger.js";
+import { sendResponse } from "../../../../utils/sendResponse.js";
+import { createHashPwd } from "../../../../utils/password.js";
+import Admin from "../../../../models/admin.js";
 
 const createAdmin = async (req, res) => {
   try {
     const { fullName, email, password } = req.body;
 
     if (!fullName || !email || !password) {
-      return SendResponse(res, 400, false, 'Full name, email, and password are required');
+      return sendResponse(
+        res,
+        400,
+        false,
+        "Full name, email, and password are required",
+      );
     }
 
     const existingAdmin = await Admin.findOne({ email });
     if (existingAdmin) {
-      return SendResponse(res, 409, false, 'Admin with this email already exists');
+      return sendResponse(
+        res,
+        409,
+        false,
+        "Admin with this email already exists",
+      );
     }
 
     const hashedPassword = createHashPwd(password);
@@ -26,14 +36,13 @@ const createAdmin = async (req, res) => {
 
     await Admin.create(newAdmin);
 
-    return SendResponse(res, 201, true, 'Admin created successfully', {
+    return sendResponse(res, 201, true, "Admin created successfully", {
       fullName: newAdmin.fullName,
       email: newAdmin.email,
     });
-
   } catch (error) {
-    logger.error('Error creating admin:', error);
-    return SendResponse(res, 500, false, 'Internal Server Error');
+    logger.error("Error creating admin:", error);
+    return sendResponse(res, 500, false, "Internal Server Error");
   }
 };
 

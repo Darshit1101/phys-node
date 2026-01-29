@@ -1,6 +1,6 @@
 import logger from './logger.js';
 
-export const SendResponse = (
+export const sendResponse = (
   res,
   statusCode = 200,
   flag = true,
