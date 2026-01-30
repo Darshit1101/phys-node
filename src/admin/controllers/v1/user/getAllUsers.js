@@ -2,18 +2,22 @@ import logger from "../../../../utils/logger.js";
 import { sendResponse } from "../../../../utils/sendResponse.js";
 import Account from "../../../../models/account.js";
 import getPagination from "../../../../utils/pagination.js";
+import getSearchQuery from "../../../../utils/search.js";
 
 const getAllUsers = async (req, res) => {
   try {
     const { page, limit, skip } = getPagination(req.query);
 
-    const users = await Account.find({})
+    // Search query
+    const searchQuery = getSearchQuery(req.query, ["fullName", "email"]);
+
+    const users = await Account.find(searchQuery)
       .select("-password")
       .sort({ createdAt: -1 })
       .skip(skip)
       .limit(limit);
 
-    const total = await Account.countDocuments({});
+    const total = await Account.countDocuments(searchQuery);
 
     return sendResponse(res, 200, true, "Users retrieved successfully", {
       users,
