@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import { appointmentSlot } from "../constants/appointment.js";
 
 const appointmentSchema = new mongoose.Schema(
   {
@@ -13,20 +14,31 @@ const appointmentSchema = new mongoose.Schema(
       required: true,
     },
 
-    slotTime: {
-      type: String, // "10:00-10:30"
+    slotStart: {
+      type: String,
+      enum: appointmentSlot,
       required: true,
+    },
+
+    slotDuration: {
+      type: Number,
+      default: 30, // minutes
     },
 
     problem: {
       type: String,
     },
+    customId: {
+      type: String,
+      unique: true,
+      index: true,
+    },
   },
   { timestamps: true },
 );
 
-// Prevent double booking
-appointmentSchema.index({ appointmentDate: 1, slotTime: 1 }, { unique: true });
+// Prevent double booking - same slot at same date can only be booked once
+appointmentSchema.index({ appointmentDate: 1, slotStart: 1 }, { unique: true });
 
 const Appointment = mongoose.model(
   "Appointment",
