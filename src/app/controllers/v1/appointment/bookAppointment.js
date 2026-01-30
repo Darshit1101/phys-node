@@ -4,7 +4,7 @@ import {customIdPrefix} from "../../../../constants/customIdPrefix.js";
 
 const bookAppointment = async (req, res) => {
   try {
-    const { appointmentDate, slotStart, problem } = req.body;
+    const { appointmentDate, slotStart, problem, slotDuration } = req.body;
 
     if (!appointmentDate || !slotStart) {
       return res.status(400).json({
@@ -27,6 +27,7 @@ const bookAppointment = async (req, res) => {
       appointmentDate: new Date(appointmentDate),
       slotStart,
       problem,
+      slotDuration,
       customId: customIdPrefix.APPOINTMENT,
     });
 
