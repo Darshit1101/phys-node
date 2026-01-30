@@ -2,9 +2,9 @@ import jwt from "jsonwebtoken";
 import { APP_JWT_SECRET } from "../../configs/environment.js";
 import { Cookie } from "../../constants/Cookies.js";
 
-const adminMiddleware = (req, res, next) => {
+const appMiddleware = (req, res, next) => {
   try {
-    const token = req.cookies?.[Cookie.ADMIN_TOKEN];
+    const token = req.cookies?.[Cookie.AUTH_TOKEN];
 
     if (!token) {
       return res.status(401).json({ message: "Unauthorized", logout: true });
@@ -22,4 +22,4 @@ const adminMiddleware = (req, res, next) => {
   }
 };
 
-export default adminMiddleware;
+export default appMiddleware;

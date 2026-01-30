@@ -16,6 +16,13 @@ const accountSchema = new mongoose.Schema(
       unique: true,
       index: true,
     },
+    age: {
+      type: Number,
+    },
+    gender: {
+      type: String,
+      enum: ["MALE", "FEMALE", "OTHER"],
+    },
   },
   {
     timestamps: true,
