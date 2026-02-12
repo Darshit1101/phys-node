@@ -23,6 +23,9 @@ const accountSchema = new mongoose.Schema(
       type: String,
       enum: ["MALE", "FEMALE", "OTHER"],
     },
+    phone: {
+      type: String,
+    },
   },
   {
     timestamps: true,
