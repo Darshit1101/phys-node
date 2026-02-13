@@ -4,13 +4,14 @@ import getAddresses from "../../controllers/v1/address/getAddresses.js";
 import getAddress from "../../controllers/v1/address/getAddress.js";
 import updateAddress from "../../controllers/v1/address/updateAddress.js";
 import deleteAddress from "../../controllers/v1/address/deleteAddress.js";
+import appMiddleware from "../../middleware/appMiddleware.js";
 
 const router = express.Router();
 
-router.post("/create", createAddress);
-router.get("/getAll", getAddresses);
-router.get("/get/:id", getAddress);
-router.put("/update/:id", updateAddress);
-router.delete("/delete/:id", deleteAddress);
+router.post("/create", appMiddleware, createAddress);
+router.get("/getAll", appMiddleware, getAddresses);
+router.get("/get/:id", appMiddleware, getAddress);
+router.put("/update/:id", appMiddleware, updateAddress);
+router.delete("/delete/:id", appMiddleware, deleteAddress);
 
 export default router;
