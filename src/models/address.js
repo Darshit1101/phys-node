@@ -22,5 +22,7 @@ addressSchema.index(
     { unique: true, partialFilterExpression: { isDefault: true } }
 );
 
+// partialFilterExpression ka matlab hai ki ye unique constraint sirf un documents par apply hoga jahan isDefault true hai. Isse ensure hota hai ki ek user ke paas sirf ek hi default address ho sakta hai, lekin wo multiple non-default addresses create kar sakta hai.
+
 const Address = mongoose.model("Address", addressSchema, "addresses");
 export default Address;
