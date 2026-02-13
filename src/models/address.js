@@ -18,7 +18,7 @@ const addressSchema = new mongoose.Schema(
 
 // Optional: Ek user ka sirf ek hi default address ho
 addressSchema.index(
-    { user: 1, isDefault: 1 },
+    { accountId: 1, isDefault: 1 },
     { unique: true, partialFilterExpression: { isDefault: true } }
 );
 
