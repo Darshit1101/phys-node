@@ -1,11 +1,12 @@
 import Appointment from "../../../../models/appointment.js";
+import Address from "../../../../models/address.js";
 import { appointmentSlot } from "../../../../constants/appointment.js";
 import { customIdPrefix } from "../../../../constants/customIdPrefix.js";
 import generateCustomId from "../../../../utils/customID/generateCustomId.js";
 
 const bookAppointment = async (req, res) => {
   try {
-    const { appointmentDate, slotStart, problem, slotDuration,addressId } = req.body;
+    const { appointmentDate, slotStart, problem, slotDuration } = req.body;
 
     if (!appointmentDate || !slotStart) {
       return res.status(400).json({
@@ -21,10 +22,18 @@ const bookAppointment = async (req, res) => {
       });
     }
 
-    // const date = new Date(`${appointmentDate}T00:00:00.000Z`);
+    const accountId = req.user.id;
+    const defaultAddress = await Address.findOne({ accountId, isDefault: true });
+    
+    if (!defaultAddress) {
+      return res.status(404).json({
+        success: false,
+        message: "No default address found",
+      });
+    }
 
     const appointment = await Appointment.create({
-      addressId,
+      addressId: defaultAddress._id,
       patientId: req.user.id,
       appointmentDate: new Date(appointmentDate),
       slotStart,

@@ -4,6 +4,6 @@ import appMiddleware from "../../middleware/appMiddleware.js";
 
 const router = express.Router();
 
-router.get("/get", appMiddleware, getSync);
+router.get("/getSync", appMiddleware, getSync);
 
 export default router;
