@@ -4,7 +4,8 @@ import logger from "../../../../utils/logger.js";
 
 const getAddresses = async (req, res) => {
     try {
-        const addresses = await Address.find({ accountId: req.query.accountId });
+        const accountId = req.user.id;
+        const addresses = await Address.find({ accountId });
         return sendResponse(res, 200, true, "Addresses fetched successfully", addresses);
     } catch (error) {
         logger.error("Error fetching addresses:", error);
