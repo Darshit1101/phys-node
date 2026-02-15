@@ -4,7 +4,15 @@ import logger from "../../../../utils/logger.js";
 
 const createAddress = async (req, res) => {
     try {
-        const address = await Address.create(req.body);
+        const userId = req.user.id;
+        const existingAddressCount = await Address.countDocuments({ accountId: userId });
+        
+        const addressData = {
+            ...req.body,
+            isDefault: existingAddressCount === 0 ? true : false
+        };
+        
+        const address = await Address.create(addressData);
         return sendResponse(res, 201, true, "Address created successfully", address);
     } catch (error) {
         logger.error("Error creating address:", error);
