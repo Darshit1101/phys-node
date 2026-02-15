@@ -39,13 +39,6 @@ const bookAppointment = async (req, res) => {
   } catch (error) {
     console.error("BOOKING ERROR 👉", error);
 
-    if (error.code === 11000) {
-      return res.status(409).json({
-        success: false,
-        message: "This slot is already booked",
-      });
-    }
-
     res.status(500).json({
       success: false,
       message: error.message,

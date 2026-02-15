@@ -37,9 +37,6 @@ const appointmentSchema = new mongoose.Schema(
   { timestamps: true },
 );
 
-// Prevent double booking - same slot at same date can only be booked once
-appointmentSchema.index({ appointmentDate: 1, slotStart: 1 }, { unique: true });
-
 const Appointment = mongoose.model(
   "Appointment",
   appointmentSchema,
