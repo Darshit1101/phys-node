@@ -5,7 +5,7 @@ import generateCustomId from "../../../../utils/customID/generateCustomId.js";
 
 const bookAppointment = async (req, res) => {
   try {
-    const { appointmentDate, slotStart, problem, slotDuration } = req.body;
+    const { appointmentDate, slotStart, problem, slotDuration,addressId } = req.body;
 
     if (!appointmentDate || !slotStart) {
       return res.status(400).json({
@@ -24,6 +24,7 @@ const bookAppointment = async (req, res) => {
     // const date = new Date(`${appointmentDate}T00:00:00.000Z`);
 
     const appointment = await Appointment.create({
+      addressId,
       patientId: req.user.id,
       appointmentDate: new Date(appointmentDate),
       slotStart,

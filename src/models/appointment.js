@@ -9,6 +9,11 @@ const appointmentSchema = new mongoose.Schema(
       required: true,
     },
 
+    addressId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Address",
+    },
+
     appointmentDate: {
       type: Date,
       required: true,
