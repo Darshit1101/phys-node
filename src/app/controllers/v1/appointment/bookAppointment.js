@@ -1,6 +1,7 @@
 import Appointment from "../../../../models/appointment.js";
 import { appointmentSlot } from "../../../../constants/appointment.js";
-import {customIdPrefix} from "../../../../constants/customIdPrefix.js";
+import { customIdPrefix } from "../../../../constants/customIdPrefix.js";
+import generateCustomId from "../../../../utils/customID/generateCustomId.js";
 
 const bookAppointment = async (req, res) => {
   try {
@@ -28,7 +29,7 @@ const bookAppointment = async (req, res) => {
       slotStart,
       problem,
       slotDuration,
-      customId: customIdPrefix.APPOINTMENT,
+      customId: generateCustomId(customIdPrefix.APPOINTMENT),
     });
 
     return res.status(201).json({
